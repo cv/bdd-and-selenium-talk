@@ -39,6 +39,18 @@ class Browser
   end
 end
 
+def firefox(host = 'localhost', port = 4444, &block)
+  b = Browser.new(host, port, '*firefox')
+  yield b if block_given?
+  b.quit
+end
+
+def internet_explorer(host = 'localhost', port = 4444)
+  b = Browser.new(host, port, '*iexplore')
+  yield b if block_given?
+  b.quit
+end
+
 def be(value)
   Matcher.new(value)
 end
@@ -47,7 +59,7 @@ class Matcher
   def initialize(value)
     @value = value
   end
-  def matches(other)
+  def matches?(other)
     @value == other
   end
   def to_s
@@ -57,6 +69,6 @@ end
 
 class Object
   def should(matcher)
-    raise "'#{self}' should have been '#{matcher}'" unless matcher.matches(self)
+    raise "'#{self}' should have been '#{matcher}'" unless matcher.matches?(self)
   end
 end
