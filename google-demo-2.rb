@@ -38,7 +38,7 @@ end
 
 firefox do |b|
   g = Google::Home.new b
-  r = g.search_for 'qcon'
-  r.title.should be('qcon - Pesquisa Google')
+  r = g.search_for 'cookie'
+  r.title.should be('cookie - Pesquisa Google')
   puts ':)'
 end
